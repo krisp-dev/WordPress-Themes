@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Logs
 logs
 *.log
@@ -137,3 +138,9 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+=======
+node_modules/
+*.log
+.DS_Store
+Thumbs.db
+>>>>>>> c658efd (Initial theme scaffold: Tailwind v4 tokens, GSAP Animations, Navbar, ACF Hero section)

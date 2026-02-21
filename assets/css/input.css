@@ -1,0 +1,529 @@
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=Bebas+Neue&display=swap");
+
+@import "tailwindcss";
+
+/* 1) Raw design tokens */
+:root {
+   --background: 0 0% 4%;
+   --foreground: 40 10% 92%;
+
+   --card: 0 0% 7%;
+   --card-foreground: 40 10% 92%;
+
+   --popover: 0 0% 7%;
+   --popover-foreground: 40 10% 92%;
+
+   --primary: 42 52% 54%;
+   --primary-foreground: 0 0% 4%;
+
+   --secondary: 0 0% 12%;
+   --secondary-foreground: 40 10% 85%;
+
+   --muted: 0 0% 14%;
+   --muted-foreground: 40 5% 55%;
+
+   --accent: 42 52% 54%;
+   --accent-foreground: 0 0% 4%;
+
+   --border: 0 0% 16%;
+   --input: 0 0% 16%;
+   --ring: 42 52% 54%;
+
+   --radius: 0.25rem;
+
+   --destructive: 220 38% 45%;
+}
+
+/* 2) Tailwind v4 “CSS-first” theme mapping.
+   This is what makes bg-background, border-border, text-muted-foreground, etc work. */
+@theme {
+   --color-background: hsl(var(--background));
+   --color-foreground: hsl(var(--foreground));
+
+   --color-card: hsl(var(--card));
+   --color-card-foreground: hsl(var(--card-foreground));
+
+   --color-popover: hsl(var(--popover));
+   --color-popover-foreground: hsl(var(--popover-foreground));
+
+   --color-primary: hsl(var(--primary));
+   --color-primary-foreground: hsl(var(--primary-foreground));
+
+   --color-secondary: hsl(var(--secondary));
+   --color-secondary-foreground: hsl(var(--secondary-foreground));
+
+   --color-muted: hsl(var(--muted));
+   --color-muted-foreground: hsl(var(--muted-foreground));
+
+   --color-accent: hsl(var(--accent));
+   --color-accent-foreground: hsl(var(--accent-foreground));
+
+   --color-border: hsl(var(--border));
+   --color-input: hsl(var(--input));
+   --color-ring: hsl(var(--ring));
+
+   --color-destructive: hsl(var(--destructive));
+
+   --radius-lg: var(--radius);
+
+   --font-headline: "Bebas Neue", sans-serif;
+   --font-body: "Inter", sans-serif;
+   --font-display: "Cormorant Garamond", serif;
+}
+
+/* 3) Base styling without @apply border-border (to avoid the v4 apply error) */
+html,
+body {
+   height: 100%;
+}
+
+body {
+   background: hsl(var(--background));
+   color: hsl(var(--foreground));
+   font-family: "Inter", sans-serif;
+}
+
+/* 4) Custom utilities */
+@layer utilities {
+   .gold-text {
+      background: linear-gradient(
+         135deg,
+         hsl(42 40% 72%),
+         hsl(42 52% 54%),
+         hsl(42 40% 72%)
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+   }
+
+   .font-headline {
+      font-family: "Bebas Neue", sans-serif;
+   }
+   .font-body {
+      font-family: "Inter", sans-serif;
+   }
+   .font-display {
+      font-family: "Cormorant Garamond", serif;
+   }
+
+   .gold-gradient {
+      background: linear-gradient(
+         135deg,
+         hsl(42 55% 38%),
+         hsl(42 52% 54%),
+         hsl(42 40% 72%),
+         hsl(42 52% 54%),
+         hsl(42 55% 38%)
+      );
+   }
+
+   /* Mobile toggle icons: guaranteed correct regardless of Tailwind utility order */
+   [data-mobile-toggle][aria-expanded="true"] [data-icon="menu"] {
+      display: none;
+   }
+   [data-mobile-toggle][aria-expanded="false"] [data-icon="close"] {
+      display: none;
+   }
+
+   /* Filter section titles */
+   .wc-block-product-filter h3,
+   .wc-block-components-title {
+      @apply font-body text-[10px] tracking-[0.3em] uppercase text-primary mb-4;
+   }
+
+   /* Remove default grey backgrounds */
+   .wc-block-product-filter,
+   .wc-block-components-filter-wrapper {
+      @apply bg-transparent border-0 p-0;
+   }
+
+   /* Price slider track */
+   .wc-block-components-price-slider__range-input-wrapper {
+      @apply h-[2px] bg-border;
+   }
+
+   /* Slider handle */
+   .wc-block-components-price-slider__handle {
+      @apply bg-primary border-0 w-4 h-4 rounded-full;
+   }
+
+   /* Active filter chips */
+   .wc-block-components-active-filters__list-item {
+      @apply text-xs tracking-wide bg-secondary text-foreground px-3 py-1 rounded-none;
+   }
+
+   /* Clear filters button */
+   .wc-block-components-active-filters__clear-all {
+      @apply uppercase tracking-[0.2em] text-primary hover:underline;
+   }
+
+   /* Scope to our sidebar block area */
+   .aa-wcblocks .wc-block-product-filters,
+   .aa-wcblocks .wc-block-product-filter,
+   .aa-wcblocks .wc-block-components-filter-wrapper {
+      @apply bg-transparent border-0 p-0;
+   }
+
+   /* Titles in blocks ("Price", "Status", etc.) */
+   .aa-wcblocks .wc-block-components-title,
+   .aa-wcblocks .wc-block-product-filter__title {
+      @apply font-body text-[10px] tracking-[0.3em] uppercase text-primary mb-4;
+   }
+
+   /* Active filter chips */
+   .aa-wcblocks .wc-block-components-active-filters__list-item {
+      @apply font-body text-xs tracking-wide bg-secondary/50 text-primary px-3 py-2 rounded-none;
+   }
+
+   .aa-wcblocks .wc-block-components-active-filters__clear-all {
+      @apply font-body text-[10px] tracking-[0.2em] uppercase text-destructive hover:underline;
+   }
+
+   /* Price slider track + handle */
+   .aa-wcblocks .wc-block-components-price-slider__range-input-wrapper {
+      @apply h-[2px] bg-border;
+   }
+
+   .aa-wcblocks .wc-block-components-price-slider__handle {
+      @apply bg-primary border-0 w-4 h-4 rounded-full;
+   }
+
+   /* Make checkbox filters look minimal */
+   .aa-wcblocks input[type="checkbox"] {
+      accent-color: rgb(var(--primary));
+   }
+
+   .aa-wcblocks label,
+   .aa-wcblocks .wc-block-components-checkbox__label {
+      @apply font-body text-sm text-muted-foreground;
+   }
+
+   /* =========================================
+     Woo Blocks: Make Price + Status match custom filters
+     Scoped to .aa-wcblocks
+  ========================================== */
+
+   /* Section wrappers */
+   .aa-wcblocks .wc-block-product-filter {
+      @apply space-y-4;
+   }
+
+   /* Titles ("Price", "Status") */
+   .aa-wcblocks .wc-block-components-title,
+   .aa-wcblocks .wc-block-product-filter__title,
+   .aa-wcblocks .wc-block-product-filter h3 {
+      @apply font-body text-[10px] tracking-[0.3em] uppercase text-primary mb-4;
+   }
+
+   /* Remove default card-ish box styles */
+   .aa-wcblocks .wc-block-product-filter,
+   .aa-wcblocks .wc-block-components-filter-wrapper,
+   .aa-wcblocks .wc-block-components-filter {
+      @apply bg-transparent border-0 p-0 shadow-none;
+   }
+
+   /* Price slider area spacing */
+   .aa-wcblocks .wc-block-components-price-slider {
+      @apply space-y-4;
+   }
+
+   /* Track */
+   .aa-wcblocks .wc-block-components-price-slider__range-input-wrapper {
+      @apply h-[2px] bg-border rounded-none;
+   }
+
+   /* Active range fill (gold) */
+   .aa-wcblocks .wc-block-components-price-slider__range-bar {
+      @apply bg-primary;
+   }
+
+   /* Handles */
+   .aa-wcblocks .wc-block-components-price-slider__handle {
+      @apply bg-primary border-0 w-4 h-4 rounded-full;
+   }
+
+   /* Min/Max inputs row */
+   .aa-wcblocks .wc-block-components-price-slider__controls {
+      @apply flex items-center justify-between gap-4 mt-4;
+   }
+
+   /* Min/Max input boxes */
+   .aa-wcblocks .wc-block-components-price-slider__amount {
+      @apply w-[72px] bg-transparent border border-border text-foreground
+           font-body text-xs tracking-[0.05em]
+           px-3 py-2 rounded-none;
+   }
+
+   /* Remove weird default focus rings and match theme */
+   .aa-wcblocks .wc-block-components-price-slider__amount:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px hsl(var(--primary));
+      border-color: hsl(var(--primary));
+   }
+
+   /* Status checkboxes list */
+   .aa-wcblocks .wc-block-components-checkbox-list {
+      @apply space-y-2;
+   }
+
+   .aa-wcblocks .wc-block-components-checkbox {
+      @apply flex items-center gap-3;
+   }
+
+   /* Checkbox input */
+   .aa-wcblocks .wc-block-components-checkbox__input {
+      @apply w-4 h-4 border border-border bg-transparent rounded-none;
+   }
+
+   /* Label text */
+   .aa-wcblocks .wc-block-components-checkbox__label {
+      @apply font-body text-sm text-muted-foreground tracking-wide;
+   }
+
+   /* Selected states */
+   .aa-wcblocks .wc-block-components-checkbox__input:checked {
+      accent-color: hsl(var(--primary));
+   }
+
+   /* Active Filters chips (if you keep that block) */
+   .aa-wcblocks .wc-block-components-active-filters__list {
+      @apply flex flex-wrap gap-2;
+   }
+
+   .aa-wcblocks .wc-block-components-active-filters__list-item {
+      @apply font-body text-[10px] tracking-[0.15em] uppercase
+           bg-secondary/50 text-primary px-3 py-2 rounded-none border border-border;
+   }
+
+   .aa-wcblocks .wc-block-components-active-filters__clear-all {
+      @apply font-body text-[10px] tracking-[0.2em] uppercase text-primary hover:underline;
+   }
+
+   /* =========================================
+     Woo Blocks: Make Price + Status match Lovable
+     Scoped to .aa-wcblocks
+  ========================================== */
+
+   /* Section wrappers */
+   .aa-wcblocks .wc-block-product-filter {
+      @apply space-y-4;
+   }
+
+   /* Titles ("Price", "Status") */
+   .aa-wcblocks .wc-block-components-title,
+   .aa-wcblocks .wc-block-product-filter__title,
+   .aa-wcblocks .wc-block-product-filter h3 {
+      @apply font-body text-[10px] tracking-[0.3em] uppercase text-primary mb-4;
+   }
+
+   /* Remove default card-ish box styles */
+   .aa-wcblocks .wc-block-product-filter,
+   .aa-wcblocks .wc-block-components-filter-wrapper,
+   .aa-wcblocks .wc-block-components-filter {
+      @apply bg-transparent border-0 p-0 shadow-none;
+   }
+
+   /* Price slider area spacing */
+   .aa-wcblocks .wc-block-components-price-slider {
+      @apply space-y-4;
+   }
+
+   /* Track */
+   .aa-wcblocks .wc-block-components-price-slider__range-input-wrapper {
+      @apply h-[2px] bg-border rounded-none;
+   }
+
+   /* Active range fill (gold) */
+   .aa-wcblocks .wc-block-components-price-slider__range-bar {
+      @apply bg-primary;
+   }
+
+   /* Handles */
+   .aa-wcblocks .wc-block-components-price-slider__handle {
+      @apply bg-primary border-0 w-4 h-4 rounded-full;
+   }
+
+   /* Min/Max inputs row */
+   .aa-wcblocks .wc-block-components-price-slider__controls {
+      @apply flex items-center justify-between gap-4 mt-4;
+   }
+
+   /* Min/Max input boxes */
+   .aa-wcblocks .wc-block-components-price-slider__amount {
+      @apply w-[72px] bg-transparent border border-border text-foreground
+           font-body text-xs tracking-[0.05em]
+           px-3 py-2 rounded-none;
+   }
+
+   /* Remove weird default focus rings and match theme */
+   .aa-wcblocks .wc-block-components-price-slider__amount:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px hsl(var(--primary));
+      border-color: hsl(var(--primary));
+   }
+
+   /* Status checkboxes list */
+   .aa-wcblocks .wc-block-components-checkbox-list {
+      @apply space-y-2;
+   }
+
+   .aa-wcblocks .wc-block-components-checkbox {
+      @apply flex items-center gap-3;
+   }
+
+   /* Checkbox input */
+   .aa-wcblocks .wc-block-components-checkbox__input {
+      @apply w-4 h-4 border border-border bg-transparent rounded-none;
+   }
+
+   /* Label text */
+   .aa-wcblocks .wc-block-components-checkbox__label {
+      @apply font-body text-sm text-muted-foreground tracking-wide;
+   }
+
+   /* Selected states */
+   .aa-wcblocks .wc-block-components-checkbox__input:checked {
+      accent-color: hsl(var(--primary));
+   }
+
+   /* Active Filters chips (if you keep that block) */
+   .aa-wcblocks .wc-block-components-active-filters__list {
+      @apply flex flex-wrap gap-2;
+   }
+
+   .aa-wcblocks .wc-block-components-active-filters__list-item {
+      @apply font-body text-[10px] tracking-[0.15em] uppercase
+           bg-secondary/50 text-primary px-3 py-2 rounded-none border border-border;
+   }
+
+   .aa-wcblocks .wc-block-components-active-filters__clear-all {
+      @apply font-body text-[10px] tracking-[0.2em] uppercase text-primary hover:underline;
+   }
+
+   /* =========================================
+     Woo Blocks: Make Price + Status match Lovable
+     Scoped to .aa-wcblocks
+  ========================================== */
+
+   /* Section wrappers */
+   .aa-wcblocks .wc-block-product-filter {
+      @apply space-y-4;
+   }
+
+   /* Titles ("Price", "Status") */
+   .aa-wcblocks .wc-block-components-title,
+   .aa-wcblocks .wc-block-product-filter__title,
+   .aa-wcblocks .wc-block-product-filter h3 {
+      @apply font-body text-[10px] tracking-[0.3em] uppercase text-primary mb-4;
+   }
+
+   /* Remove default card-ish box styles */
+   .aa-wcblocks .wc-block-product-filter,
+   .aa-wcblocks .wc-block-components-filter-wrapper,
+   .aa-wcblocks .wc-block-components-filter {
+      @apply bg-transparent border-0 p-0 shadow-none;
+   }
+
+   /* Price slider area spacing */
+   .aa-wcblocks .wc-block-components-price-slider {
+      @apply space-y-4;
+   }
+
+   /* Track */
+   .aa-wcblocks .wc-block-components-price-slider__range-input-wrapper {
+      @apply h-[2px] bg-border rounded-none;
+   }
+
+   /* Active range fill (gold) */
+   .aa-wcblocks .wc-block-components-price-slider__range-bar {
+      @apply bg-primary;
+   }
+
+   /* Handles */
+   .aa-wcblocks .wc-block-components-price-slider__handle {
+      @apply bg-primary border-0 w-4 h-4 rounded-full;
+   }
+
+   /* Min/Max inputs row */
+   .aa-wcblocks .wc-block-components-price-slider__controls {
+      @apply flex items-center justify-between gap-4 mt-4;
+   }
+
+   /* Min/Max input boxes */
+   .aa-wcblocks .wc-block-components-price-slider__amount {
+      @apply w-[72px] bg-transparent border border-border text-foreground
+           font-body text-xs tracking-[0.05em]
+           px-3 py-2 rounded-none;
+   }
+
+   /* Remove weird default focus rings and match theme */
+   .aa-wcblocks .wc-block-components-price-slider__amount:focus {
+      outline: none;
+      box-shadow: 0 0 0 1px hsl(var(--primary));
+      border-color: hsl(var(--primary));
+   }
+
+   /* Status checkboxes list */
+   .aa-wcblocks .wc-block-components-checkbox-list {
+      @apply space-y-2;
+   }
+
+   .aa-wcblocks .wc-block-components-checkbox {
+      @apply flex items-center gap-3;
+   }
+
+   /* Checkbox input */
+   .aa-wcblocks .wc-block-components-checkbox__input {
+      @apply w-4 h-4 border border-border bg-transparent rounded-none;
+   }
+
+   /* Label text */
+   .aa-wcblocks .wc-block-components-checkbox__label {
+      @apply font-body text-sm text-muted-foreground tracking-wide;
+   }
+
+   /* Selected states */
+   .aa-wcblocks .wc-block-components-checkbox__input:checked {
+      accent-color: hsl(var(--primary));
+   }
+
+   /* Active Filters chips (if you keep that block) */
+   .aa-wcblocks .wc-block-components-active-filters__list {
+      @apply flex flex-wrap gap-2;
+   }
+
+   .aa-wcblocks .wc-block-components-active-filters__list-item {
+      @apply font-body text-[10px] tracking-[0.15em] uppercase
+           bg-secondary/50 text-primary px-3 py-2 rounded-none border border-border;
+   }
+
+   .aa-wcblocks .wc-block-components-active-filters__clear-all {
+      @apply font-body text-[10px] tracking-[0.2em] uppercase text-primary hover:underline;
+   }
+
+   /* Woo quantity input (single product) */
+   .quantity {
+      @apply inline-flex items-center border border-border bg-card;
+   }
+
+   .quantity input.qty {
+      @apply w-14 text-center bg-transparent text-foreground font-body text-sm py-2 outline-none;
+   }
+
+   .aa-qty {
+      @apply inline-flex items-center border border-border bg-card;
+   }
+   .aa-qty-btn {
+      @apply w-11 h-11 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors select-none;
+   }
+   .aa-qty-input {
+      @apply w-14 h-11 text-center bg-transparent text-foreground font-body text-sm outline-none;
+      -moz-appearance: textfield;
+   }
+   .aa-qty-input::-webkit-outer-spin-button,
+   .aa-qty-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+   }
+}
