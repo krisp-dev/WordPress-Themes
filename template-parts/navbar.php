@@ -144,43 +144,79 @@ $home = esc_url(home_url('/'));
     </div>
   </div>
 
-  <!-- Cart Overlay -->
-  <div
-    class="fixed inset-0 bg-black/60 backdrop-blur-[2px] opacity-0 pointer-events-none transition-opacity duration-300 z-[99]"
-    data-cart-overlay
-    aria-hidden="true"
-  >
+    
+</nav>
+
+<!-- Cart Overlay -->
+<div
+  class="fixed inset-x-0 top-16 bottom-0 z-40 bg-background/60 backdrop-blur-sm
+         opacity-0 pointer-events-none transition-opacity duration-300"
+  data-cart-overlay
+  aria-hidden="true"
+></div>
+
+<!-- Cart Drawer -->
+<aside
+  class="fixed right-0 top-16 h-[calc(100vh-4rem)] w-full max-w-md z-40 bg-card border-l border-border
+         translate-x-full transform-gpu will-change-transform
+         transition-transform duration-500 ease-out
+         flex flex-col"
+  data-cart-drawer
+  aria-hidden="true"
+>
+  <!-- Header -->
+  <div class="flex items-center justify-between p-6 border-b border-border shrink-0">
+    <div class="flex items-center gap-3">
+      <!-- ShoppingBag icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+        class="text-primary">
+        <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+        <path d="M3 6h18"></path>
+        <path d="M16 10a4 4 0 0 1-8 0"></path>
+      </svg>
+
+      <span class="font-headline text-xl tracking-[0.1em] text-foreground">Cart</span>
+
+      <span class="font-body text-[10px] tracking-[0.1em] text-muted-foreground" data-cart-total>
+        (<?php echo (function_exists('WC') && WC()->cart) ? intval(WC()->cart->get_cart_contents_count()) : 0; ?>)
+      </span>
+    </div>
+
+    <button data-cart-close class="text-muted-foreground hover:text-foreground transition-colors" aria-label="Close cart">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M18 6 6 18"></path>
+        <path d="M6 6l12 12"></path>
+      </svg>
+    </button>
   </div>
 
-  <!-- Cart Drawer -->
-  <div
-    class="fixed top-0 right-0 h-full w-full sm:w-[420px] bg-background border-l border-border transform translate-x-full transition-transform duration-300 z-[100]"
-    data-cart-drawer
-    aria-hidden="true"
-  >
-    <div class="flex items-center justify-between p-6 border-b border-border">
-      <h2 class="font-display text-lg font-light">Your Cart</h2>
-      <button data-cart-close class="text-muted-foreground hover:text-primary transition-colors" aria-label="Close cart">
-        ✕
-      </button>
-    </div>
+  <!-- Items -->
+  <div class="flex-1 overflow-y-auto" data-cart-items>
+    <?php woocommerce_mini_cart(); ?>
+  </div>
 
-    <div class="p-6 overflow-y-auto h-[calc(100%-160px)]" data-cart-items>
-      <?php woocommerce_mini_cart(); ?>
-    </div>
-
-    <div class="p-6 border-t border-border">
-      <div class="flex justify-between text-sm mb-4">
-        <span>Subtotal</span>
+  <!-- Footer -->
+  <div class="p-6 border-t border-border space-y-4 shrink-0" data-cart-footer>
+    <div class="flex items-center justify-between">
+      <span class="font-body text-xs tracking-[0.15em] uppercase text-muted-foreground">Subtotal</span>
+      <span class="font-display text-xl text-primary">
         <span data-cart-subtotal>
           <?php echo (function_exists('WC') && WC()->cart) ? wp_kses_post(WC()->cart->get_cart_subtotal()) : ''; ?>
         </span>
-      </div>
-
-      <a href="<?php echo esc_url(wc_get_checkout_url()); ?>"
-         class="block text-center gold-gradient px-6 py-3 uppercase text-xs tracking-[0.2em] text-primary-foreground">
-        Checkout
-      </a>
+      </span>
     </div>
+
+    <a
+      href="<?php echo esc_url(wc_get_checkout_url()); ?>"
+      class="block w-full text-center font-body text-xs tracking-[0.2em] uppercase py-4 bg-primary text-primary-foreground hover:bg-primary/90 transition-all"
+    >
+      Checkout
+    </a>
+
+    <p class="font-body text-[7px] tracking-[0.15em] uppercase text-muted-foreground text-center opacity-50">
+      For laboratory research use only
+    </p>
   </div>
-</nav>
+</aside>

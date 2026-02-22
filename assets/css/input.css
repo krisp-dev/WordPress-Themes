@@ -25,6 +25,14 @@
    --accent: 42 52% 54%;
    --accent-foreground: 0 0% 4%;
 
+   --gold: 42 52% 54%;
+   --gold-light: 42 40% 72%;
+   --gold-dark: 42 55% 38%;
+
+   --obsidian: 0 0% 6%;
+   --obsidian-light: 0 0% 10%;
+   --marble: 0 0% 18%;
+
    --border: 0 0% 16%;
    --input: 0 0% 16%;
    --ring: 42 52% 54%;
@@ -57,6 +65,14 @@
 
    --color-accent: hsl(var(--accent));
    --color-accent-foreground: hsl(var(--accent-foreground));
+
+   --color-gold: hsl(var(--gold));
+   --color-gold-light: hsl(var(--gold-light));
+   --color-gold-dark: hsl(var(--gold-dark));
+
+   --color-obsidian: hsl(var(--obsidian));
+   --color-obsidian-light: hsl(var(--obsidian-light));
+   --color-marble: hsl(var(--marble));
 
    --color-border: hsl(var(--border));
    --color-input: hsl(var(--input));
@@ -116,6 +132,45 @@ body {
          hsl(42 52% 54%),
          hsl(42 55% 38%)
       );
+   }
+
+   .gold-border {
+      border-image: linear-gradient(
+            135deg,
+            hsl(42 55% 38%),
+            hsl(42 52% 54%),
+            hsl(42 40% 72%)
+         )
+         1;
+   }
+
+   .obsidian-gradient {
+      background: linear-gradient(
+         180deg,
+         hsl(0 0% 4%),
+         hsl(0 0% 8%),
+         hsl(0 0% 4%)
+      );
+   }
+
+   .marble-texture {
+      background:
+         radial-gradient(
+            ellipse at 20% 50%,
+            hsl(0 0% 12% / 0.3) 0%,
+            transparent 50%
+         ),
+         radial-gradient(
+            ellipse at 80% 20%,
+            hsl(0 0% 15% / 0.2) 0%,
+            transparent 50%
+         ),
+         radial-gradient(
+            ellipse at 60% 80%,
+            hsl(0 0% 10% / 0.3) 0%,
+            transparent 50%
+         ),
+         hsl(0 0% 6%);
    }
 
    /* Mobile toggle icons: guaranteed correct regardless of Tailwind utility order */
@@ -299,11 +354,6 @@ body {
    .aa-wcblocks .wc-block-components-active-filters__clear-all {
       @apply font-body text-[10px] tracking-[0.2em] uppercase text-primary hover:underline;
    }
-
-   /* =========================================
-     Woo Blocks: Make Price + Status match Lovable
-     Scoped to .aa-wcblocks
-  ========================================== */
 
    /* Section wrappers */
    .aa-wcblocks .wc-block-product-filter {
@@ -525,5 +575,162 @@ body {
    .aa-qty-input::-webkit-inner-spin-button {
       -webkit-appearance: none;
       margin: 0;
+   }
+
+   /* Force cart drawer to use viewport height, regardless of parent layout */
+   [data-cart-drawer] {
+      height: 100vh !important;
+      top: 0 !important;
+      right: 0 !important;
+      position: fixed !important;
+      display: flex !important;
+      flex-direction: column !important;
+   }
+
+   [data-cart-items] {
+      flex: 1 1 auto !important;
+      min-height: 0 !important; /* CRITICAL for flex scroll areas */
+      overflow-y: auto !important;
+   }
+
+   /* Hide WooCommerce injected "View cart" link after add-to-cart */
+   a.added_to_cart.wc_forward {
+      display: none !important;
+   }
+
+   .woocommerce-notices-wrapper,
+   .woocommerce-message {
+      display: none !important;
+   }
+
+   .woocommerce select,
+   .woocommerce-page select,
+   .select2-container .select2-selection--single {
+      background: hsl(var(--background));
+      border: 1px solid hsl(var(--border));
+      color: hsl(var(--foreground));
+      height: 48px;
+      padding: 0 1rem;
+      font-size: 0.875rem;
+      outline: none;
+      border-radius: 0;
+   }
+
+   .select2-container--default
+      .select2-selection--single
+      .select2-selection__rendered {
+      line-height: 48px;
+      color: hsl(var(--foreground));
+      padding-left: 0;
+   }
+
+   .select2-container--default
+      .select2-selection--single
+      .select2-selection__arrow {
+      height: 48px;
+      right: 10px;
+   }
+
+   .select2-dropdown {
+      background: hsl(var(--background));
+      border: 1px solid hsl(var(--border));
+   }
+
+   .select2-container--default .select2-results__option {
+      font-size: 0.875rem;
+   }
+
+   .select2-container--default
+      .select2-results__option--highlighted[aria-selected] {
+      background: hsl(var(--primary));
+      color: hsl(var(--primary-foreground));
+   }
+
+   /* --- Checkout selects: force Select2 to match theme --- */
+   .woocommerce .select2-container {
+      width: 100% !important;
+   }
+
+   .woocommerce .select2-container .select2-selection--single {
+      background: hsl(var(--background)) !important;
+      border: 1px solid hsl(var(--border)) !important;
+      color: hsl(var(--foreground)) !important;
+      height: 48px !important;
+      border-radius: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      padding: 0 1rem !important;
+   }
+
+   .woocommerce
+      .select2-container--default
+      .select2-selection--single
+      .select2-selection__rendered {
+      color: hsl(var(--foreground)) !important;
+      line-height: 48px !important;
+      padding: 0 !important;
+   }
+
+   .woocommerce
+      .select2-container--default
+      .select2-selection--single
+      .select2-selection__placeholder {
+      color: hsl(var(--muted-foreground)) !important;
+   }
+
+   .woocommerce
+      .select2-container--default
+      .select2-selection--single
+      .select2-selection__arrow {
+      height: 48px !important;
+      right: 10px !important;
+   }
+
+   .woocommerce
+      .select2-container--default
+      .select2-selection--single
+      .select2-selection__arrow
+      b {
+      border-color: hsl(var(--muted-foreground)) transparent transparent
+         transparent !important;
+   }
+
+   .woocommerce .select2-dropdown {
+      background: hsl(var(--background)) !important;
+      border: 1px solid hsl(var(--border)) !important;
+      border-radius: 0 !important;
+   }
+
+   .woocommerce
+      .select2-container--default
+      .select2-search--dropdown
+      .select2-search__field {
+      background: hsl(var(--background)) !important;
+      border: 1px solid hsl(var(--border)) !important;
+      color: hsl(var(--foreground)) !important;
+      outline: none !important;
+   }
+
+   .woocommerce .select2-container--default .select2-results__option {
+      color: hsl(var(--foreground)) !important;
+   }
+
+   .woocommerce
+      .select2-container--default
+      .select2-results__option--highlighted[aria-selected] {
+      background: hsl(var(--primary)) !important;
+      color: hsl(var(--primary-foreground)) !important;
+   }
+
+   /* Add vertical spacing between checkout field rows */
+   .woocommerce-checkout .form-row {
+      margin-bottom: 2rem;
+   }
+
+   /* Extra breathing room for grouped rows (like suburb/state/postcode) */
+   .woocommerce-checkout .form-row-wide,
+   .woocommerce-checkout .form-row-first,
+   .woocommerce-checkout .form-row-last {
+      margin-bottom: 2rem;
    }
 }
