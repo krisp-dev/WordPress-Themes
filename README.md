@@ -1,16 +1,19 @@
 # Ascend Aesthetics — Custom WordPress + WooCommerce Theme
 
-A portfolio-grade custom WordPress theme built from scratch using a modern front-end workflow.
+A fully custom, performance-focused WordPress + WooCommerce theme built from scratch using a modern front-end workflow.
+
+This project was developed as a portfolio-grade custom theme, replicating a high-end luxury ecommerce experience without using page builders.
 
 ---
 
 ## 🔧 Tech Stack
 
 - WordPress (Classic Custom Theme)
-- WooCommerce (integration in progress)
-- Tailwind CSS v4 (design tokens + utility workflow)
+- WooCommerce (fully integrated)
+- Tailwind CSS v4 (utility-first + design tokens)
 - GSAP + ScrollTrigger (animation engine)
 - Advanced Custom Fields (Free) — hybrid editable architecture
+- Vanilla JavaScript (no page builders, no heavy frameworks)
 
 ---
 
@@ -20,8 +23,9 @@ This theme uses a hybrid model:
 
 - Layout & structure → hardcoded PHP templates (pixel-perfect control)
 - Marketing content → editable via ACF fields
-- Products → powered by WooCommerce
+- Ecommerce functionality → WooCommerce templates overridden in theme
 - Animations → GSAP
+- Styling → Tailwind compiled build
 
 ---
 
@@ -30,44 +34,109 @@ This theme uses a hybrid model:
 ### Core Theme Structure
 
 - Custom `front-page.php`
-- Modular `template-parts/`
+- Modular `template-parts/` architecture
 - Clean `functions.php` script/style enqueueing
-- Tailwind build setup
+- Tailwind build pipeline
+- WooCommerce template overrides
+- Responsive layout (mobile-first)
 
 ---
 
-### Navbar
+### Navigation
 
-- Responsive desktop + mobile navigation
-- Animated mobile menu toggle
-- Blur + border styling
-- Fully custom markup (no page builder)
-
----
-
-### Hero Section (Hybrid ACF)
-
-- Editable heading, subheading, CTA labels & links
-- Editable background image
-- Gold gradient styling
-- GSAP entrance animation (Framer Motion equivalent)
+- Fully custom responsive navigation
+- Animated mobile menu
+- Backdrop blur + border styling
+- Sticky scroll behavior
+- No page builder
 
 ---
 
-### Trust Pillars Section
+### Hero Section
 
-- 3-column layout (1:1 with original React component)
-- ACF Free fields (no Pro repeater used)
-- Lucide-style SVG icons
-- Hover effects
-- GSAP staggered scroll reveal
+- Editable headline, subheading, CTA (ACF)
+- Background image control
+- Gradient typography
+- GSAP entrance animation
 
 ---
 
-## 🛣 Roadmap
+### Brand / Trust / Authority Section
 
-- WooCommerce Products grid (pixel-perfect loop)
-- Custom Single Product template
-- Cart + Checkout styling
-- Standards / Transparency / About sections (ACF editable)
-- Performance & accessibility refinements
+- 3-column structured layout
+- SVG icons
+- Hover interactions
+- Scroll-triggered stagger animation
+
+---
+
+### Product Highlight Section
+
+- Featured WooCommerce products
+- Custom product loop markup
+- Styled price & CTA components
+- Responsive grid layout
+
+---
+
+### Standards / Transparency Section
+
+- Editable ACF content
+- Structured content layout
+- Scroll animation
+- Luxury minimal styling
+
+---
+
+### Footer
+
+- Custom structured footer
+- Editable contact information
+- Social links
+- Fully responsive layout
+
+---
+
+## 🛒 WooCommerce Integration
+
+### Product Archive
+
+- Custom loop template
+- Tailwind-based card styling
+- Hover image states
+- Styled filters & layout
+
+---
+
+### Single Product
+
+- Custom product layout
+- Styled variation selectors
+- Custom quantity + add-to-cart UI
+- Tabs styling
+
+---
+
+### Cart
+
+- Fully restyled cart table
+- Quantity updates
+
+---
+
+### Checkout
+
+- Custom form styling
+- Clean two-column layout (desktop)
+- Mobile-optimized UX
+
+---
+
+## 🎞 Animation System
+
+### Powered by GSAP - to replicate modern React/Framer-motion style inside WordPress
+
+- Hero entrance animations
+- Scroll reveal effects
+- Staggered content transitions
+- Performance-optimized transforms
